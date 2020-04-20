@@ -21,8 +21,8 @@ export class AppComponent implements OnInit{
     this.signUpForm = new FormGroup({
       'userData' : new FormGroup({
         'username': new FormControl(null, [Validators.required, this.forbiddenNames.bind(this)]),
-        'email': new FormControl(null, [Validators.required, Validators.email, 
-                 this.forbiddenEmails])
+        'email': new FormControl(null, [Validators.required, Validators.email], 
+          this.forbiddenEmails) // Note since this is asynch validator, hence it is the third argument
       }),
       'gender': new FormControl('male'),
       'hobbies': new FormArray([])
