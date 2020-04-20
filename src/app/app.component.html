@@ -1,14 +1,20 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <!-- [formGroup]="signUpForm" is important to let the html know that use the form from 
+          the typescript class -->
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
-        <div formGroupName="userData">
+        <div formGroupName="userData"> 
+          <!-- formGroupName directive is used to sync the form group 
+              between template and typescript class-->
+          <!-- formControlName directive is used to sync the form control 
+              between template and typescript class-->
           <div class="form-group">
             <label for="username">Username</label>
             <input
               type="text"
               id="username"
-              formControlName="username"
+              formControlName="username" 
               class="form-control">
             <span 
               *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched"
@@ -33,6 +39,19 @@
               formControlName="gender"
               [value]="gender">{{ gender }}
           </label>
+        </div>
+        <!-- formArrayName directive is used to sync the form array of controls 
+              between template and typescript class -->
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button 
+          class="btn btn-default" 
+          type="button" 
+          (click)="onAddHobby()">Add Hobby</button>
+          <div class="form-group"
+            *ngFor="let hobbyControl of controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
         </div>
         <span 
             *ngIf="!signUpForm.valid && signUpForm.touched"
